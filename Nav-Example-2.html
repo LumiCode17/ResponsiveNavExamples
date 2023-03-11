@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Nav</title>
+    <!-- base SEO -->
+    <meta name="description" content="Apple Watch Series 7 | Landing Page | MG Codes">
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png" />
+    <!-- main CSS -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    /* reset */
+    *,
+    ::before,
+    ::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+        text-decoration: none;
+    }
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    html {
+        font-size: 10px;
+        /* 1rem = 10px */
+        scroll-behavior: smooth;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* project variables */
+    :root {
+        /* font */
+        --first-font: "Roboto", sans-serif;
+        --size-font: 10px;
+        --normal-font: 400;
+        --bold-font: 700;
+
+        /* color */
+        --first-color: rgb(255, 255, 255);
+        --first-color-light: rgba(255, 255, 255, 0.8);
+        --first-color-medium: rgba(255, 255, 255, 0.3);
+        --second-color: rgb(0, 0, 0);
+        --second-color-dark: rgba(0, 0, 0, 0.8);
+        --thirty-color: rgb(202, 32, 31);
+        --button-color: rgb(0, 113, 227);
+        --button-color-hover: rgba(0, 113, 227, 0.8);
+        --input-color: rgb(29, 29, 31);
+
+        /* space */
+        --header-fixed-height: 4.8rem;
+    }
+
+    /* project settings */
+    body {
+        font-family: var(--first-font);
+        font-size: var(--size-font);
+        font-weight: var(--normal-font);
+        background-color: var(--first-color);
+        color: var(--second-color-dark);
+        margin: var(--header-fixed-height) 0 0 0;
+    }
+
+    /*=== LAYOUT ===*/
+
+    .section {
+        width: 100%;
+        height: auto;
+    }
+
+    .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 1.6rem;
+        margin: 0 auto;
+    }
+
+    /*=== HEADER START ===*/
+
+    .header {
+        height: 4.8rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: var(--second-color-dark);
+        z-index: 15;
+    }
+
+    @media screen and (min-width: 768px) {
+        .header>.container {
+            display: flex;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .header>.container {
+            max-width: 99.2rem;
+            padding: 0;
+        }
+    }
+
+    /* HEADER > MENU BUTTON */
+
+    .header>.container>.menu-button {
+        width: 4.8rem;
+        height: 4.8rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding: 1rem 1rem 1rem 0;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+    @media screen and (min-width: 768px) {
+        .header>.container>.menu-button {
+            display: none;
+        }
+    }
+
+
+    .header>.container>.menu-button>.bar1,
+    .header>.container>.menu-button>.bar2 {
+        width: 3rem;
+        height: 0.2rem;
+        display: flex;
+        background-color: var(--first-color-light);
+        transition: all .3s ease;
+    }
+
+    .header>.container>.menu-button.-active>.bar1 {
+        -webkit-transform: rotate(-45deg) translate(-6px, 4px);
+        transform: rotate(-45deg) translate(-6px, 4px);
+    }
+
+    .header>.container>.menu-button.-active>.bar2 {
+        -webkit-transform: rotate(45deg) translate(-6px, -4px);
+        transform: rotate(45deg) translate(-6px, -4px);
+    }
+
+    /* HEADER > NAV */
+
+    .header>.container>.main-nav {
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 4.8rem 1.6rem 0;
+        background-color: var(--second-color);
+        opacity: 0;
+        transform-origin: top;
+        transform: scaleY(0);
+        transition: all .3s ease-in-out;
+    }
+
+    @media screen and (min-width: 768px) {
+        .header>.container>.main-nav {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            display: block;
+            background-color: transparent;
+            padding: 0 4rem 0 0;
+            opacity: 1;
+            transform: scaleY(100%);
+            order: 1;
+        }
+    }
+
+    .header>.container>.main-nav.-active {
+        opacity: 1;
+        transform: scaleY(100%);
+        transition: all .3s ease-in-out;
+    }
+
+    .header>.container>.main-nav>.search {
+        width: 100%;
+        height: 3.6rem;
+        background-color: var(--input-color);
+        background-image: url(../assets/img/search.svg);
+        background-repeat: no-repeat;
+        background-position: 1rem 50%;
+        background-size: 2rem;
+        padding-left: 4rem;
+        font-size: 1.8rem;
+        color: var(--first-color);
+    }
+
+    @media screen and (min-width: 768px) {
+        .header>.container>.main-nav>.search {
+            display: none;
+        }
+    }
+
+    .header>.container>.main-nav>.list {
+        width: 100%;
+        margin-top: 2rem;
+        border-top: 1px solid var(--first-color-medium);
+    }
+
+    @media screen and (min-width: 768px) {
+        .header>.container>.main-nav>.list {
+            max-width: 60rem;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 0 auto;
+            border-top: none;
+        }
+    }
+
+    .header>.container>.main-nav>.list>.item {
+        border-bottom: 1px solid var(--first-color-medium);
+        margin: 0 3.2rem;
+        padding: 1rem 0 1.2rem;
+        cursor: pointer;
+    }
+
+    @media screen and (min-width: 768px) {
+        .header>.container>.main-nav>.list>.item {
+            border-bottom: none;
+            margin: 0;
+            padding: 0;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .header>.container>.main-nav>.list>.item:hover>.link {
+            color: var(--first-color);
+            transition: all .3s ease;
+        }
+    }
+
+    .header>.container>.main-nav>.list>.item>.link {
+        font-size: 1.8rem;
+        font-weight: var(--normal-font);
+        color: var(--first-color);
+        padding-left: 1rem;
+    }
+
+    @media screen and (min-width: 768px) {
+        .header>.container>.main-nav>.list>.item>.link {
+            font-size: 1.6rem;
+            color: var(--first-color-light);
+            padding: 0;
+            transition: all .3s ease;
+        }
+    }
+
+    /* HEADER > LOGO */
+
+    .header>.container>.logo {
+        width: 4rem;
+        height: 4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+    }
+
+    @media screen and (min-width: 768px) {
+        .header>.container>.logo {
+            justify-content: flex-start;
+        }
+    }
+
+    /* HEADER > SEARCH ICON */
+
+    .header>.container>.searchicon {
+        width: 4rem;
+        height: 4rem;
+        display: none;
+        z-index: 10;
+    }
+
+    @media screen and (min-width: 768px) {
+        .header>.container>.searchicon {
+            display: flex;
+            align-items: center;
+            order: 2;
+        }
+    }
+
+    /* HEADER > BAG */
+
+    .header>.container>.bag {
+        width: 4rem;
+        height: 4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        opacity: 1;
+        transition: opacity .3s ease-in-out;
+    }
+
+    @media screen and (min-width: 768px) {
+        .header>.container>.bag {
+            justify-content: flex-end;
+            order: 3;
+        }
+    }
+
+    .header>.container>.bag.-hidden {
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+    }
+
+    /* HEADER > LOGO/SEARCH/BAG */
+
+    .header>.container>.logo>svg path,
+    .header>.container>.searchicon>svg path,
+    .header>.container>.bag>svg path {
+        fill: var(--first-color);
+        transition: fill-opacity .3s ease;
+    }
+
+    @media screen and (min-width: 1024px) {
+
+        .header>.container>.logo:hover>svg path,
+        .header>.container>.searchicon:hover>svg path,
+        .header>.container>.bag:hover>svg path {
+            fill-opacity: 1;
+            transition: fill-opacity .3s ease;
+        }
+    }
+
+    /*=== HEADER END ===*/
+</style>
+
+<body>
+    <header class="section header">
+        <div class="container">
+            <div class="menu-button">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+            </div>
+            <nav class="main-nav">
+                <input type="text" class="search" placeholder="Search apple.com">
+                <ul class="list">
+                    <li class="item">
+                        <a href="#" class="link">Mac</a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="link">iPad</a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="link">iPhone</a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="link">Watch</a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="link">TV</a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="link">Music</a>
+                    </li>
+                    <li class="item">
+                        <a href="#" class="link">Support</a>
+                    </li>
+                </ul>
+            </nav>
+            <!--SVG-->
+            <a href="#" class="logo">
+                <svg width="19" height="23" viewBox="0 0 19 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <title>Logo Apple</title>
+                    <path
+                        d="M9.348 5.308c1.008 0 2.27-.702 3.022-1.638.681-.848 1.178-2.032 1.178-3.217 0-.16-.015-.321-.043-.453-1.12.044-2.468.775-3.277 1.755-.638.745-1.22 1.915-1.22 3.114 0 .176.028.351.043.41.07.014.184.029.297.029zM5.802 23c1.376 0 1.986-.95 3.703-.95 1.744 0 2.127.92 3.66.92 1.503 0 2.51-1.432 3.46-2.836 1.065-1.608 1.505-3.187 1.533-3.26-.1-.03-2.98-1.243-2.98-4.65 0-2.954 2.27-4.284 2.398-4.387-1.503-2.222-3.787-2.28-4.412-2.28-1.688 0-3.064 1.052-3.929 1.052-.936 0-2.17-.994-3.632-.994C2.823 5.615 0 7.983 0 12.458c0 2.778 1.05 5.717 2.34 7.618C3.448 21.684 4.413 23 5.803 23z"
+                        fill="#fff" fill-opacity=".8" />
+                </svg>
+            </a>
+            <a href="#" class="searchicon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <title>Search</title>
+                    <path
+                        d="m19.878 18.7-5.81-5.81a7.876 7.876 0 0 0 1.765-4.973C15.833 3.55 12.282 0 7.917 0 3.55 0 0 3.551 0 7.917c0 4.365 3.551 7.916 7.917 7.916a7.876 7.876 0 0 0 4.973-1.765l5.81 5.81a.417.417 0 0 0 .589 0l.589-.59a.417.417 0 0 0 0-.588zM7.917 14.167a6.257 6.257 0 0 1-6.25-6.25 6.257 6.257 0 0 1 6.25-6.25 6.257 6.257 0 0 1 6.25 6.25 6.257 6.257 0 0 1-6.25 6.25z"
+                        fill="#fff" fill-opacity=".8" />
+                </svg>
+            </a>
+            <a href="#" class="bag">
+                <svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <title>Bag</title>
+                    <path
+                        d="M19.107 18.364 18.02 7.808a.858.858 0 0 0-.853-.77H2.862a.858.858 0 0 0-.853.768L.893 18.367a3.308 3.308 0 0 0 .842 2.542A3.305 3.305 0 0 0 4.178 22h11.673c.92 0 1.802-.39 2.419-1.07.625-.69.93-1.623.837-2.566zM17 19.777a1.531 1.531 0 0 1-1.148.506H4.179c-.441 0-.868-.192-1.17-.526a1.585 1.585 0 0 1-.409-1.214l1.035-9.789h12.757l1.008 9.782a1.59 1.59 0 0 1-.401 1.24z"
+                        fill="#fff" fill-opacity=".8" />
+                    <path
+                        d="M10.157 0a4.926 4.926 0 0 0-4.92 4.92v2.976h1.716V4.921a3.208 3.208 0 0 1 3.204-3.204 3.208 3.208 0 0 1 3.205 3.204v2.975h1.716V4.921A4.926 4.926 0 0 0 10.158 0z"
+                        fill="#fff" fill-opacity=".8" />
+                </svg>
+            </a>
+        </div>
+    </header>
+
+
+    <!-- main JS -->
+    <script>
+        // header
+        const $menuBtn = document.querySelector(".menu-button");
+        const $mainNav = document.querySelector(".main-nav");
+        const $bag = document.querySelector(".bag");
+
+        function clickMenuButton() {
+            if ($menuBtn.classList.contains("-active")) {
+                $menuBtn.classList.remove("-active")
+                $mainNav.classList.remove("-active")
+                $bag.classList.remove("-hidden")
+            } else {
+                $menuBtn.classList.add("-active")
+                $mainNav.classList.add("-active")
+                $bag.classList.add("-hidden")
+            }
+        }
+
+        $menuBtn.addEventListener("click", clickMenuButton)
+
+    </script>
+</body>
+
+</html>
